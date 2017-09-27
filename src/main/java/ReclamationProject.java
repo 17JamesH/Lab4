@@ -1,26 +1,42 @@
-/*
- * The following code needs a lot of TLC. So give it some!
- *
- * 1. Fix all checkstyle errors
- * 2. Determine what it does (it's going to be tough before you finish #1)
- * 3. Improve the name of the methods and variables
- * 4. Add comments and Javadoc comments where needed
- * 5. Remove unnecessary comments as appropriate
+/**
+ * Contains a function to find the longest common substring of two strings.
  */
+public class ReclamationProject {
 
-public class ReclamationProject
-{
-    static String doit(String a,String b){
-        if (a.length() > b.length()){
-            String c = a; // TODO: set c to a
-            a=b; b=c;}
-        String r = (a.equals(b)) ? "" : ""; // I love the ternary operator!
-        /*
-         * For loop with i
-         */
-        for (int i = 0; i < a.length(); i++) { for (int j = a.length() - i; j > 0; j--) {
-                for (int k = 0; k < b.length()- j; k++) {
-                    r = (a.regionMatches(i, b, k, j) && j >r.length()) ? a.substring(i,i + j) : r; // Do it!
-                        }} // Ah yeah
-        } return r; }
+    /**
+     * Finds the longest common substring (the longest set of characters that input1 and input2 have
+     * in common.
+     *
+     * @param input1 the first string to compare
+     * @param input2 the second string to compare
+     * @return the longest common substring between input1 and input2
+     */
+    static String doit(final String input1, final String input2) {
+        String inputA = input1;
+        String inputB = input2;
+        String longestSubstring = "";
+
+        if (input1.length() > input2.length()) {
+            inputA = input2;
+            inputB = input1;
+        }
+
+        // for i is the index of each character in a
+        for (int i = 0; i < inputA.length(); i++) {
+            // for j is each possible length of the substring of a starting from i
+            for (int j = inputA.length() - i; j >= 0; j--) {
+                //for k is each letter in b, -the length of the substring being searched
+                for (int k = 0; k < inputB.length() - j; k++) {
+                    //if input1 and input2 have matching substrings, and j > the longest substring
+                    if (inputA.regionMatches(i, inputB, k, j + 1)
+                        && j > longestSubstring.length()) {
+
+                        longestSubstring = inputA.substring(i, i + j + 1);
+                    }
+                }
+            }
+        }
+
+        return longestSubstring;
+    }
 }
